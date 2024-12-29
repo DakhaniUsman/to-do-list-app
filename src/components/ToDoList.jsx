@@ -1,28 +1,25 @@
-import React, { useContext } from 'react';
-import { ToDoContext } from '../context/ToDoContext';
-import "./App.css";
+import React from "react";
+import { useTodos } from "./context/ToDoContext";
+import TodoItem from "./ToDoItem";
+import "./ToDoList.css"
 
-const ToDoList = () => {
-    const { todos, toggleTodo, deleteTodo } = useContext(ToDoContext);
+const TodoList = () => {
+  const { todos } = useTodos();
 
-    return (
-        <div>
-            <h2>To-Do List</h2>
-            <ul>
-                {todos.map((todo) => (
-                    <li key={todo.id}>
-                        <input
-                            type="checkbox"
-                            checked={todo.completed}
-                            onChange={() => toggleTodo(todo.id)}
-                        />
-                        {todo.text}
-                        <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <div className="to-do-list-container">
+      {todos.length > 0 ? (
+        todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+      ) : (
+        <p>Add some To-Dos.</p>
+      )}
+    </div>
+  );
 };
 
-export default ToDoList;
+export default TodoList;
+
+// note : agar todos ki length 0 hai toh print kro add some todos
+// agar todos ki length > 0 hai toh todos ko map krke todoItem me daal do
+// todoItem me key me todo ka id daal do as a prop
+// todoItem me todo pass kro

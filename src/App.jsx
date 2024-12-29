@@ -1,41 +1,27 @@
-import React, { useState } from 'react';
+import { TodoProvider } from "./components/context/ToDoContext";
+import AddTodo from "./components/AddToDo";
+import TodoList from "./components/ToDoList";
+import "./App.css";
 
-function App() {
-    const [tasks, setTasks] = useState([]);
-    const [task, setTask] = useState('');
-
-    const addTask = () => {
-        if (task.trim()) {
-            setTasks([...tasks, task]);
-            setTask('');
-        }
-    };
-
-    const removeTask = (index) => {
-        const newTasks = tasks.filter((_, i) => i !== index);
-        setTasks(newTasks);
-    };
-
-    return (
-        <div className="App">
-            <h1>To-Do List</h1>
-            <input 
-                type="text" 
-                value={task} 
-                onChange={(e) => setTask(e.target.value)} 
-                placeholder="Add a new task" 
-            />
-            <button onClick={addTask}>Add Task</button>
-            <ul>
-                {tasks.map((task, index) => (
-                    <li key={index}>
-                        {task} 
-                        <button onClick={() => removeTask(index)}>Remove</button>
-                    </li>
-                ))}
-            </ul>
+const App = () => {
+  return (
+    <TodoProvider>
+      <div className="App">
+        <div className="to-do-app">
+          <h1>To-Do List</h1>
+          <AddTodo />
+          <TodoList />
         </div>
-    );
-}
+      </div>
+    </TodoProvider>
+  );
+};
 
 export default App;
+
+
+// note: app arrow funtion create kr export kr
+
+// sab cheez ko TodoProvider me daal kyuki wo context me jaake sab functionalities aajayege usme
+// parent div bana aur app ke liye ek div bana 
+// heading de and addTodo and TodoList import kr

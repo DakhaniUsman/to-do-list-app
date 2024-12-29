@@ -1,52 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTodos } from './context/ToDoContext';
+import "./AddToDo.css"
 
-const AddToDo = () => {
-    const [todos, setTodos] = useState([]);
-    const [newTodo, setNewTodo] = useState('');
-    const [isEditing, setIsEditing] = useState(false);
-    const [currentTodo, setCurrentTodo] = useState({});
+const AddTodo = () => {
+    const {addTodo} = useTodos();  
 
-    const handleAddTodo = () => {
-        if (newTodo.trim() !== '') {
-            setTodos([...todos, { text: newTodo, id: Date.now() }]);
-            setNewTodo('');
-        }
-    };
+    const [text, setText] = useState("");
 
-    const handleEditTodo = (todo) => {
-        setIsEditing(true);
-        setCurrentTodo(todo);
-        setNewTodo(todo.text);
-    };
+    const handleAdd = () => {
+        if (text.trim()){   // remove additonal space and prevent from empty text submission
+            addTodo(text);  // click pe send text to addTodo
+            setText("");    // after sending empty the input field
+        }                   // 
+    }
 
-    const handleUpdateTodo = () => {
-        setTodos(todos.map(todo => (todo.id === currentTodo.id ? { ...todo, text: newTodo } : todo)));
-        setIsEditing(false);
-        setNewTodo('');
-        setCurrentTodo({});
-    };
+  return (
+    <div className='add-to-container'>
+        <input type="text" placeholder='Add your new task' value={text} onChange={(e)=> setText(e.target.value)}/>
+        <button onClick={handleAdd}>+</button>
+    </div>
+  )
+}
 
-    return (
-        <div>
-            <h1>To-Do List</h1>
-            <input
-                type="text"
-                value={newTodo}
-                onChange={(e) => setNewTodo(e.target.value)}
-            />
-            <button onClick={isEditing ? handleUpdateTodo : handleAddTodo}>
-                {isEditing ? 'Update' : 'Add'}
-            </button>
-            <ul>
-                {todos.map((todo) => (
-                    <li key={todo.id}>
-                        {todo.text}
-                        <button onClick={() => handleEditTodo(todo)}>Edit</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+export default AddTodo;
 
-export default AddToDo;
+// note : add to do search field rhega plus ek button 
+// hume kya krna hai jo search filed me type hoga usko track krna hai and todo krke todo list ke todoItem me bhejna hai
+

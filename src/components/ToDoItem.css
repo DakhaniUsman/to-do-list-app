@@ -1,0 +1,34 @@
+.to-do-item{
+    /* width: 100%; */
+    height: 40px;
+    /* border: 2px solid black; */
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+    box-shadow: 0px 0px 10px #aaa;
+    border-radius: 15px;
+    font-size: 18px;
+}
+
+.to-do-item input{
+    font-size: 18px;
+}
+
+
+.btns{
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+    /* border: 2px solid black; */
+}
+
+.btns button{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    box-shadow: 0px 0px 10px #aaa;
+}
